@@ -7,9 +7,9 @@
 
 import labelCollapseBranch from '@salesforce/label/c.lightning_LightningTree_collapseBranch';
 import labelExpandBranch from '@salesforce/label/c.lightning_LightningTree_expandBranch';
-import { LightningElement, api, track } from 'lwc';
-import { classSet } from 'c/utils';
-import { keyCodes } from 'c/utilsPrivate';
+import {LightningElement, api, track} from 'lwc';
+import {classSet} from 'c/utils';
+import {keyCodes} from 'c/utilsPrivate';
 
 const i18n = {
     collapseBranch: labelCollapseBranch,
@@ -49,6 +49,10 @@ export default class cTreeItem extends LightningElement {
 
     @api get focusedChild() {
         return this._focusedChild;
+    }
+
+    get className() {
+        return this.ariaSelected === 'true' ? "slds-tree__item selected" : "slds-tree__item";
     }
 
     set focusedChild(value) {
@@ -196,7 +200,7 @@ export default class cTreeItem extends LightningElement {
         };
 
         if (item !== undefined) {
-            eventObject.detail = { key: item };
+            eventObject.detail = {key: item};
         }
         // eslint-disable-next-line lightning-global/no-custom-event-identifier-arguments
         this.dispatchEvent(new CustomEvent(eventName, eventObject));

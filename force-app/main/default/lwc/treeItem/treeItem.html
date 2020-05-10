@@ -55,7 +55,7 @@
         </template>
     </template>
     <template if:false={isRoot}>
-        <div class="slds-tree__item" onclick={handleClick}>
+        <div class={className}  onclick={handleClick}>
             <button
                 type="button"
                 class={computedButtonClass}
