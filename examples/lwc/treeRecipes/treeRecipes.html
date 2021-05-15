@@ -13,9 +13,32 @@
                     arrow icons to expand or collapse a branch.
                 </h2>
 
+                <h4>By flipping the '<code>expanded</code>' boolean in the specific node of the items object,
+                    that branch will open or close (toggle).  Notice a selected branch will not collapse.</h4>
+
                 <!-- Simple -->
                 <div class="slds-p-around_medium lgc-bg">
-                    <c-tree items={items} header="Roles"></c-tree>
+                    <c-button
+                        onclick={toggleCTO}
+                        label="Toggle CTO"
+                        class="slds-m-left_xx-small"
+                    ></c-button>
+                    <c-button
+                        onclick={toggleCFO}
+                        label="Toggle CFO"
+                        class="slds-m-left_xx-small"
+                    ></c-button>
+                    <c-button
+                        onclick={selectDirector}
+                        label="Select Manager 1 under CFO"
+                        class="slds-m-left_xx-small"
+                    ></c-button>
+                    <c-tree
+                        items={items}
+                        header="Roles"
+                        selected-item={selectedItem}
+                        onselect={handleSelect}
+                    ></c-tree>
                 </div>
             </div>
             <c-view-source source="treeRecipes" slot="footer">

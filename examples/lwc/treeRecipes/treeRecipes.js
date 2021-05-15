@@ -4,10 +4,12 @@
  * SPDX-License-Identifier: MIT
  * For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/MIT
  */
-import { LightningElement } from 'lwc';
+import { LightningElement, track } from 'lwc';
 
 export default class TreeRecipes extends LightningElement {
-    items = [
+    @track selectedItem = null;
+
+    @track items = [
         {
             label: 'CTO',
             name: 'CTO',
@@ -21,7 +23,7 @@ export default class TreeRecipes extends LightningElement {
                         {
                             label: 'Manager 1',
                             name: 'CTO-MGR-1',
-                            expanded: true,
+                            expanded: false,
                             items: [
                                 {
                                     label: 'Assistant Manager 1',
@@ -91,7 +93,7 @@ export default class TreeRecipes extends LightningElement {
                 {
                     label: 'Director',
                     name: 'CFO-DIR',
-                    expanded: false,
+                    expanded: true,
                     items: [
                         {
                             label: 'Manager 1',
@@ -101,6 +103,9 @@ export default class TreeRecipes extends LightningElement {
                                 {
                                     label: 'Assistant Manager 1',
                                     name: 'CFO-ASM-1'
+                                }, {
+                                    label: 'Assistant Manager 2',
+                                    name: 'CFO-ASM-2'
                                 }
                             ]
                         },
@@ -113,4 +118,29 @@ export default class TreeRecipes extends LightningElement {
             ]
         }
     ];
+
+    handleSelect(event) {
+        this.selectedItem = event.detail.name;
+    }
+
+    selectDirector() {
+        this.selectedItem = 'CFO-MGR-1';
+    }
+
+    toggleCTO() {
+        const updatedItems = JSON.parse(JSON.stringify(this.items));
+        updatedItems[0] = {
+            ...updatedItems[0],
+            expanded: !updatedItems[0].expanded
+        };
+        this.items = updatedItems;
+    }
+    toggleCFO() {
+        const updatedItems = JSON.parse(JSON.stringify(this.items));
+        updatedItems[1] = {
+            ...updatedItems[1],
+            expanded: !updatedItems[1].expanded
+        };
+        this.items = updatedItems;
+    }
 }
